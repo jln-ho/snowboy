@@ -1,10 +1,16 @@
+import sys
+import platform
+
+if platform.linux_distribution()[0] != "Ubuntu" or platform.linux_distribution()[1] != "16.04":
+    print >> sys.stderr, "Error: this script will only work with Ubuntu 16.04"
+    exit(-1)
 
 import argparse
 import tempfile
-import uuid
 from scipy.io import wavfile
 from pmdl import snowboy_pmdl_config
-from pmdl.snowboy_pmdl import SnowboyPersonalEnroll, SnowboyTemplateCut
+from pmdl.snowboy import SnowboyPersonalEnroll, SnowboyTemplateCut
+
 
 def check_enroll_output(enroll_ans):
     if enroll_ans == -1:
@@ -56,6 +62,7 @@ def main():
     f.write(open(out.name).read())
     f.close()
     print("finished")
+
 
 if __name__ == "__main__":
     main()
